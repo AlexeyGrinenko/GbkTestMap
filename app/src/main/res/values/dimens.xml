@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dimens_10dp">10dp</dimen>
+    <dimen name="dimens_5dp">5dp</dimen>
+
+    <dimen name="cluster_image_size">50dp</dimen>
+    <dimen name="cluster_bound_padding">1dp</dimen>
+</resources>
