@@ -31,7 +31,7 @@ public class LocationsRenderer extends DefaultClusterRenderer<LocationItem> {
 
         super(GbkMapApp.getAppContext(), map, mClusterManager);
         mClusterIconGenerator.setContentView(view);
-        mClusterImageView =  view.findViewById(R.id.image);
+        mClusterImageView = view.findViewById(R.id.image);
 
         mImageView = new ImageView(GbkMapApp.getAppContext());
         mDimension = (int) GbkMapApp.getAppContext().getResources().getDimension(R.dimen.cluster_image_size);

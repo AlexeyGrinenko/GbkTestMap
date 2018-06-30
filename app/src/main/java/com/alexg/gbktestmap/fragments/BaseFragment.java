@@ -1,57 +1,29 @@
 package com.alexg.gbktestmap.fragments;
 
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 
-import com.alexg.gbktestmap.models.PointModel;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.Map;
+import com.alexg.gbktestmap.R;
 
 
-public class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
 
-    protected DatabaseReference mDatabaseReference;
-    protected ArrayList<PointModel> mPointsList;
+    protected void showErrorAlert(String errorText) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
 
-    public BaseFragment() {
-        // Required empty public constructor
-    }
+        alertDialog.setTitle(R.string.text_error_occurred);
+        alertDialog.setMessage(errorText);
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mPointsList = new ArrayList<>();
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        mDatabaseReference.addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.getChildrenCount()>0) {
-                            fillPointsArrayList((Map<String, Object>) dataSnapshot.getValue());
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+        alertDialog.setPositiveButton(
+                getResources().getString(R.string.text_ok),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                       dialog.dismiss();
                     }
                 });
 
-    }
-
-    private void fillPointsArrayList(Map<String, Object> users) {
-        for (Map.Entry<String, Object> entry : users.entrySet()) {
-            Map singleUser = (Map) entry.getValue();
-            PointModel pointmodel = new PointModel((String) singleUser.get("name"),
-                    (String) singleUser.get("latitude"), (String) singleUser.get("longitude"));
-            mPointsList.add(pointmodel);
-        }
+        alertDialog.show();
     }
 }

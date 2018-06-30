@@ -1,13 +1,14 @@
 package com.alexg.gbktestmap;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -85,7 +86,7 @@ public class SignActivity extends AppCompatActivity {
             startMainActivity();
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
-            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
+            showErrorsAlert(e.getMessage());
             updateUI(null);
         }
     }
@@ -101,4 +102,20 @@ public class SignActivity extends AppCompatActivity {
         }
     }
 
+    private void showErrorsAlert(String text) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+        alertDialog.setTitle(R.string.text_error_occurred);
+        alertDialog.setMessage(text);
+
+        alertDialog.setPositiveButton(
+                getResources().getString(R.string.text_ok),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                      dialog.dismiss();
+                    }
+                });
+
+        alertDialog.show();
+    }
 }

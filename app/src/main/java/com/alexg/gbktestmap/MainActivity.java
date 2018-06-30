@@ -24,7 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements ProfileFragment.OnFragmentProfileListener,
-        ListFragment.OnFragmentListListener {
+        ListFragment.ListItemClickListener {
     private final String TAG = MainActivity.class.getName();
 
     private Fragment listFragment;
@@ -62,9 +62,9 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
 
 //        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 //        PointModel pointModel1 = new PointModel("Railway station", "48.477540", "35.015261");
-//        mDatabase.push().setValue(pointModel1);
+//        database.push().setValue(pointModel1);
 //        PointModel pointModel2 = new PointModel("Post office", "48.467873", "35.040897");
-//        mDatabase.push().setValue(pointModel2);
+//        database.push().setValue(pointModel2);
 
     }
 
@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
                 R.id.fragmentContainer, newFragment)
                 .commit();
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -107,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
                         finish();
                     }
                 });
-
     }
 
     private void clearDB() {

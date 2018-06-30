@@ -15,5 +15,6 @@
     <string name="text_add">Add</string>
     <string name="text_cancel">Cancel</string>
     <string name="text_enter_location_name">Enter location name</string>
+    <string name="text_error_occurred">An Error Occurred</string>
 
 </resources>
