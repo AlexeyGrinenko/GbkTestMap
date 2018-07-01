@@ -144,6 +144,7 @@ public class MapFragment extends BaseFragment {
     }
 
     private void getPointsArrayList() {
+        mPointsList = new ArrayList<>();
         FirebaseUtils.getDatabaseReference().addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -161,7 +162,6 @@ public class MapFragment extends BaseFragment {
     }
 
     private void fillPointsArrayList(Map<String, Object> users) {
-        mPointsList = new ArrayList<>();
         for (Map.Entry<String, Object> entry : users.entrySet()) {
             Map singleUser = (Map) entry.getValue();
             PointModel pointmodel = new PointModel((String) singleUser.get("name"),

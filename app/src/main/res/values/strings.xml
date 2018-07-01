@@ -16,5 +16,7 @@
     <string name="text_cancel">Cancel</string>
     <string name="text_enter_location_name">Enter location name</string>
     <string name="text_error_occurred">An Error Occurred</string>
+    <string name="text_login_error_occurred">Login Error Occurred</string>
+    <string name="text_turn_on_internet">This application required stable internet connection. Please turn on internet on your device</string>
 
 </resources>

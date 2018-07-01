@@ -1,18 +1,14 @@
 package com.alexg.gbktestmap;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.alexg.gbktestmap.utils.Consts;
 import com.alexg.gbktestmap.utils.GoogleUtils;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -31,10 +27,17 @@ public class SignActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign);
         mProgressBar = findViewById(R.id.sign_in_progressBar);
+        if (GoogleUtils.isNetworkAvailable()) {
+            startLogging();
+        }else{
+            showErrorsAlert(getResources().getString(R.string.text_turn_on_internet));
+            initGoogleButton();
+        }
+    }
 
-        SharedPreferences sharedPref = getSharedPreferences(Consts.TAG_USER_LOGGED, Context.MODE_PRIVATE);
-        String userId = sharedPref.getString(Consts.KEY_USER_ID, "");
-        if (!TextUtils.isEmpty(userId)) {
+    private void startLogging() {
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if (account != null) {
             startMainActivity();
         } else {
             mProgressBar.setVisibility(View.GONE);
@@ -86,7 +89,7 @@ public class SignActivity extends AppCompatActivity {
             startMainActivity();
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
-            showErrorsAlert(e.getMessage());
+            showErrorsAlert(getResources().getString(R.string.text_login_error_occurred)+" "+e.getMessage());
             updateUI(null);
         }
     }
@@ -94,11 +97,6 @@ public class SignActivity extends AppCompatActivity {
     private void updateUI(@Nullable GoogleSignInAccount account) {
         if (account != null) {
             mProgressBar.setVisibility(View.INVISIBLE);
-
-            SharedPreferences sharedPref = getSharedPreferences(Consts.TAG_USER_LOGGED, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString(Consts.KEY_USER_ID, account.getId());
-            editor.apply();
         }
     }
 

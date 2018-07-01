@@ -1,8 +1,6 @@
 package com.alexg.gbktestmap;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -14,7 +12,6 @@ import com.alexg.gbktestmap.fragments.ListFragment;
 import com.alexg.gbktestmap.fragments.MapFragment;
 import com.alexg.gbktestmap.fragments.ProfileFragment;
 import com.alexg.gbktestmap.models.PointModel;
-import com.alexg.gbktestmap.utils.Consts;
 import com.alexg.gbktestmap.utils.GoogleUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -60,11 +57,11 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
                     }
                 });
 
-//        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-//        PointModel pointModel1 = new PointModel("Railway station", "48.477540", "35.015261");
-//        database.push().setValue(pointModel1);
-//        PointModel pointModel2 = new PointModel("Post office", "48.467873", "35.040897");
-//        database.push().setValue(pointModel2);
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        PointModel pointModel1 = new PointModel("Railway station", "48.477540", "35.015261");
+        database.push().setValue(pointModel1);
+        PointModel pointModel2 = new PointModel("Post office", "48.467873", "35.040897");
+        database.push().setValue(pointModel2);
 
     }
 
@@ -103,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         clearDB();
-                        clearUserId();
                         goToSignIn();
                         finish();
                     }
@@ -118,13 +114,6 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
     private void goToSignIn() {
         Intent intent = new Intent(this, SignActivity.class);
         startActivity(intent);
-    }
-
-    private void clearUserId() {
-        SharedPreferences sharedPref = getSharedPreferences(Consts.TAG_USER_LOGGED, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(Consts.KEY_USER_ID, "");
-        editor.apply();
     }
 
     @Override
