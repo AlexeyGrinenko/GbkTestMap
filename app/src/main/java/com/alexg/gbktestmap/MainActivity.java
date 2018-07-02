@@ -57,11 +57,11 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
                     }
                 });
 
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        PointModel pointModel1 = new PointModel("Railway station", "48.477540", "35.015261");
-        database.push().setValue(pointModel1);
-        PointModel pointModel2 = new PointModel("Post office", "48.467873", "35.040897");
-        database.push().setValue(pointModel2);
+//        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+//        PointModel pointModel1 = new PointModel("Railway station", "48.477540", "35.015261");
+//        database.push().setValue(pointModel1);
+//        PointModel pointModel2 = new PointModel("Post office", "48.467873", "35.040897");
+//        database.push().setValue(pointModel2);
 
     }
 
